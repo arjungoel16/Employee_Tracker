@@ -1,6 +1,6 @@
 # Employee_Tracker
 
-# Technologiea Used
+# Technologies Used
 JavaScript, SQL, Node.JS
 
 # Description
