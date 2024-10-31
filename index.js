@@ -2,7 +2,7 @@
 const inquirer = require('inquirer');
 const db = require('./db/connection');
 
-// Start server after DB connection
+// After creating DB connection, initialize the server
 db.connect(err => {
     if (err) throw err;
     console.log('Database connected.');
@@ -17,7 +17,7 @@ var emp_tracker = function () {
         message: 'What would you like to do?',
         choices: ['View All Department', 'View All Roles', 'View All Employees', 'Add A Department', 'Add A Role', 'Add An Employee', 'Update An Employee Role', 'Log Out']
     }]).then((answers) => {
-        // Views the Department Table in the Database
+        // Looks at the department table in the database
         if (answers.prompt === 'View All Department') {
             db.query(`SELECT * FROM department`, (err, result) => {
                 if (err) throw err;
@@ -40,8 +40,8 @@ var emp_tracker = function () {
                 emp_tracker();
             });
         } else if (answers.prompt === 'Add A Department') {
+            // adding a department
             inquirer.prompt([{
-                // Adding a Department
                 type: 'input',
                 name: 'department',
                 message: 'What is the name of the dpeartment?',
@@ -49,7 +49,7 @@ var emp_tracker = function () {
                     if (departmentInput) {
                         return true;
                     } else {
-                        console.log('Please Add A Department!');
+                        console.log('Add A Department!');
                         return false;
                     }
                 }
@@ -61,13 +61,10 @@ var emp_tracker = function () {
                 });
             })
         } else if (answers.prompt === 'Add A Role') {
-            // Beginning with the database so that we may acquire the departments for the choice
             db.query(`SELECT * FROM department`, (err, result) => {
                 if (err) throw err;
-
                 inquirer.prompt([
                     {
-                        
                         type: 'input',
                         name: 'role',
                         message: 'What is the name of the role?',
@@ -81,7 +78,6 @@ var emp_tracker = function () {
                         }
                     },
                     {
-                        
                         type: 'input',
                         name: 'salary',
                         message: 'What is the salary of the role?',
